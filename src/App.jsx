@@ -4,17 +4,24 @@ import './App.css'
 
 import { useState } from 'react'
 import { Todos } from './components/Todos'
+import { Login } from './components/Login'
+import { getCurrentUser, signOuthUser } from './utils'
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function App() {
-  const [user,setuser]=useState(null)
+  const [user,setUser]=useState(null)
   
-  
+  getCurrentUser(setUser)
 
   return (
     <>
-      <div>
+      <div className="app">
         <h1>My Todo</h1>
-        <Todos/>
+        {user && <LogoutIcon 
+        sx={{width:"100%",cursore:"pointer",color:"blue",fontSize:"15px"}}
+        onClick={()=>signOuthUser()}
+        />}
+        {user==null ? <Login/> : <Todos/>}
       </div>
     </>
   )
